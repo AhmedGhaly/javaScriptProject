@@ -1,7 +1,8 @@
-var checkOutProdcutsId = getCookie("prodcuts") == null ? []: getCookie("prodcuts"); // return arr of char 
+var checkOutProdcutsId = JSON.parse(getCookie("prodcuts")) ?? [] 
 var numOfProductsInChecoutCards = document.getElementsByClassName("small-circle")[0];
 var cateigoryName = document.getElementsByClassName("cateigory")[0];
 cateigoryName.innerHTML = "<h1>All Products</h1>"
+
 
 numOfProductsInChecoutCards.innerHTML = checkOutProdcutsId.length;
 
@@ -167,10 +168,10 @@ function onSelectOptoin(e) {
 
 
 function addProdcutToCheckOut(id){
-    if( !checkOutProdcutsId.find((element) => element == id)){
-        checkOutProdcutsId.push(id)
+    if( !checkOutProdcutsId.find((element) => element.id == id)){
+        checkOutProdcutsId.push({id: id, count: 1});
         numOfProductsInChecoutCards.innerHTML = checkOutProdcutsId.length;
-        setCookie("prodcuts", checkOutProdcutsId);
+        setCookie("prodcuts", JSON.stringify(checkOutProdcutsId));
 
     }
 
@@ -197,7 +198,7 @@ function getCookie(cookieName) {
     var cookies = document.cookie.split(";");
     for (let i = 0; i < document.cookie.length; i++) {
         if(cookies[i]?.split("=")[0] == cookieName){
-            return cookies[i]?.split("=")[1].split(",");
+            return (cookies[i]?.split("=")[1]).split(",");
 
         }
         
