@@ -1,0 +1,232 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* start header sectoin */
+.header {
+    background-color: #333;
+    padding: 20px;
+}
+
+.header a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* ende header section */
+
+
+/* start nav sectoin */
+nav {
+    background-color: #555;
+    padding: 10px;
+}
+
+nav ul li{
+    list-style: none;
+    display: inline-block;
+    margin: 10px;
+}
+
+nav a {
+    color: #fff;
+    padding: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+nav a:hover {
+    text-decoration: none;
+    color: #dadada;
+}
+
+ul .icon {
+    float: right;
+    position: relative;
+}
+
+.small-circle {
+    position: absolute;
+    top: -15px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: red;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+/* ender nav section */
+
+/* start section contatiner */
+
+.my_container {
+    margin: 20px;
+}
+
+/* end contatiner section */
+
+/* start slider section */
+
+.image {
+    height: 1000px;
+}
+/* ender slider section */
+
+/* start cards section */
+.image_contanier { 
+    position: relative;
+}
+.discount-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    text-align: center;
+    color: red;
+    border-radius: 10%;
+    font-size: small;
+    font-weight: bold;
+    background-color: white;
+    opacity: .7;
+}
+.rating {
+display: inline-block;
+}
+
+.rating input {
+display: none;
+}
+
+.rating label {
+float: right;
+color: #aaa;
+cursor: pointer;
+}
+
+.rating label:before {
+content: '\2605'; /* Unicode character for a star */
+}
+
+.rating input:checked ~ label {
+color: red; /* Color for selected stars */
+}
+
+.stock {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: black;
+    opacity: .3;
+    border-radius: 10%;
+}
+
+.price {
+    text-align: center;
+}
+
+.card {
+    padding: 0;
+    width: 33.33%;
+    margin: 10px ;
+    margin-top: 20px ;
+}
+
+.mainCard {
+    width: 100%;
+}
+
+.myCard {
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.myCard:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.7);
+}
+
+.card-img-top {
+    height: 70%;
+}
+
+select {
+    width: 200px;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+}
+select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+select:focus {
+    outline: none;
+    border-color: #666;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.cateigory {
+    background-color: green;
+    color: whitesmoke;
+    height: 70px;
+    text-align: center;
+    padding: 10px;
+}
+
+/* start search */
+
+.search-form {
+    display: flex;
+}
+  
+.search-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    width: 200px;
+}
+  
+.search-button {
+    background-color: #ccc;
+    color: #fff;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.search-button i {
+    font-size: 16px;
+}
+
+.search-input:focus,
+.search-button:focus {
+    outline: none;
+    border-color: #666;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.search {
+    text-align: center;
+    margin: 10px;
+    width: 100%;
+    display: inline-block;    
+}
+/* end search */
+
+/* end card sectoin */
