@@ -12,10 +12,11 @@
     </head>
     <body>
         
-        <header class="header"><h1><a href="home">MY BRAND NAME</a></h1></header>
+        <header class="header"><h1><a href="./index.html">MY BRAND NAME</a></h1></header>
         <nav>
             <ul>
-                <li><a href="HOME">HOME</a></li>
+                <li><a href="./index.html">HOME</a></li>
+                <li><a href="./checout.html">YOUR CARD</a></li>
                 <li><a href="ABOUT">ABOUT</a></li>
                 <li><a href="CONTACTUS">CONTACT US</a></li>
                 <li class="icon"><a href="../stuctures/checout.html"><i class="fas fa-shopping-cart"></i><div class="small-circle">0</div></a></li>
@@ -40,7 +41,17 @@
         </div>
         <!-- end slider -->
 
+        <!-- model -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 class="item_detials">Item Details</h2>
+                <div class="model"></div>
+            </div>
+        </div>
+        <!-- --------------------->
         <main class="my_container">
+
             <select onchange="onSelectOptoin(event)" class="form-select form-select-lg mb-3" aria-label="Default select example" name="category" id="myCat">
                 <option value="All Prodcuts" selected>All Products</option>
             </select>
@@ -52,7 +63,14 @@
             </div>
 
         </main>
-        <footer></footer>
+        <footer>
+            <ul>
+                <li><a href="https://www.facebook.com/profile.php?id=100092288103856" target="_blank"><i class="facebook fa fa-facebook-f"></i></a></li>
+                <li><a href="https://github.com/AhmedGhaly" target="_blank"><i class="github fa fa-github"></i></a></li>
+                <h1>Ahmed Ghaly</h1>
+                <li>&copy; 2023 MY BRAND. All rights reserved.</li>
+            </ul>
+        </footer>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

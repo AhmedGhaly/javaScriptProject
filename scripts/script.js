@@ -2,6 +2,7 @@ var checkOutProdcutsId = JSON.parse(getCookie("prodcuts")) ?? []
 var numOfProductsInChecoutCards = document.getElementsByClassName("small-circle")[0];
 var cateigoryName = document.getElementsByClassName("cateigory")[0];
 cateigoryName.innerHTML = "<h1>All Products</h1>"
+var imagesItem = 0;
 
 
 numOfProductsInChecoutCards.innerHTML = checkOutProdcutsId.length;
@@ -13,7 +14,7 @@ var images = ["../assets/images/1.jpg","../assets/images/2.jpg","../assets/image
 
 var imageContent = document.getElementsByClassName("image")[0];
 // var slider = document.getElementsByClassName("slider")[0];
-var currentImage = 0;
+var currentImage = 1;
 /// get the next image
 function nextImage () {
     if(currentImage > 5)
@@ -33,11 +34,108 @@ function prevImage () {
 /////////////////////// start products sectoin /////////////////////
 
 
+///////////////// model /////////////////////////////////////
+
+function openModal(myProduct) {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block"; 
+    createModelItem(myProduct);
+}
+
+function closeModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none"; 
+}
+
+
+function createModelItem(myProduct){
+    var modelContent = document.getElementsByClassName("model")[0];
+    var images = myProduct.images;
+    modelContent.innerHTML = 
+    `<div class='row'>
+        <div class='col'>
+        <div class="carousel slide">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="card-img-top modal_img" src="${myProduct.images[0]}" />
+                </div>
+            </div>
+            <a onclick="prevItemImage('${[...myProduct.images]}')" class="carousel-control-prev" >
+                <span class="carousel-control-prev-icon black"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a onclick="nextItemImage('${[...myProduct.images]}')" class="carousel-control-next" >
+                <span class="carousel-control-next-icon black"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+            <small><span class="currentImage">1</span> / ${myProduct.images.length}</small>
+        </div>
+        <div class='col'>
+                    <div class="col">
+                        <h1 class="title">${myProduct.title}</h1>
+                        <small class="brand">${myProduct.brand}</small>
+                    </div>
+                    <div class="col"><h3 class="price">$${myProduct.price}</h3></div>
+                <p class="card-text desc">${myProduct.description}</p>
+                <div class="rating product${myProduct.id}" >
+                    <small class="rating-num">(${myProduct.rating})</small>
+                    <input type="radio" id="star5" name="product${myProduct.id}" value="5" disabled>
+                    <label for="star5"></label>
+                    <input type="radio" id="star4" name="product${myProduct.id}" value="4" disabled>
+                    <label for="star4"></label>
+                    <input type="radio" id="star3" name="product${myProduct.id}" value="3" disabled>
+                    <label for="star3"></label>
+                    <input type="radio" id="star2" name="product${myProduct.id}" value="2" disabled>
+                    <label for="star2"></label>
+                    <input type="radio" id="star1" name="product${myProduct.id}" value="1" disabled>
+                    <label for="star1"></label>
+                <div>
+                    <button onclick='addProdcutToCheckOut(${myProduct.id})' class="btn btn-outline-primary">add to card</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    `; 
+    ratoing(myProduct.id, myProduct.rating);
+
+}
+function prevItemImage(myImages) {
+    var currentImage = document.getElementsByClassName("currentImage")[0];
+    var image = myImages.split(",");
+    var imagesContent = document.getElementsByClassName("modal_img")[0];
+    if (imagesItem < 0 || imagesItem > Number(image.length - 1))
+        imagesItem = Number(image.length - 1);
+
+        currentImage.innerHTML = imagesItem + 1;
+    imagesContent.setAttribute("src", image[imagesItem--]);
+    
+}
+
+function nextItemImage(myImages) {
+    var currentImage = document.getElementsByClassName("currentImage")[0];
+    var image = myImages.split(',');
+    var imagesContent = document.getElementsByClassName("modal_img")[0];
+    if (imagesItem < 0 || imagesItem > Number(image.length - 1))
+        imagesItem = 0;
+        currentImage.innerHTML = imagesItem + 1;
+    imagesContent.setAttribute("src", image[imagesItem++]);
+    
+}
+
+
+
+//////////////////////////////////////////////////////////
+
+
+
 var parent = document.getElementsByClassName("parent")[0];
 
 function createCard (myProduct) {
     var cardDiv = document.createElement("div");   
     cardDiv.setAttribute("class", "card myCard") 
+    cardDiv.onclick = function () {openModal(myProduct);}
     cardDiv.setAttribute("style", "width: 18rem;") 
     cardDiv.innerHTML = `
     <img class="card-img-top" src="${myProduct.images[0]}">
@@ -67,9 +165,6 @@ function createCard (myProduct) {
                         <input type="radio" id="star1" name="product${myProduct.id}" value="1" disabled>
                         <label for="star1"></label>
                     </div>
-                    <div class="col">
-                        <button onclick='addProdcutToCheckOut(${myProduct.id})' class="btn btn-outline-primary">add to card</button>
-                    </div>
                 </div>
     `; 
     
@@ -80,6 +175,11 @@ function createCard (myProduct) {
     addCat();
 }
 
+
+function ratoing (id, rating){
+    var ratting = document.querySelectorAll(`.product${id} input`);
+    ratting[5 - Math.floor(rating)].checked = true;
+}
 
 var product = new XMLHttpRequest();
 
@@ -102,6 +202,8 @@ product.onreadystatechange = function () {
 };
 
 ////////// end prodcuts section //////////////////////////////////////////
+
+
 
 ////////////// add category sectoin ///////////////////////////////////
 
@@ -172,6 +274,7 @@ function addProdcutToCheckOut(id){
         checkOutProdcutsId.push({id: id, count: 1});
         numOfProductsInChecoutCards.innerHTML = checkOutProdcutsId.length;
         setCookie("prodcuts", JSON.stringify(checkOutProdcutsId));
+        closeModal();
 
     }
 
@@ -229,8 +332,29 @@ function getElement(e) {
         } 
 }
 
-///////////////////////////////////////////////////////////////////
+///////////////// scroller sectoin //////////////////////////////////////////////////
 
+
+window.onscroll = function() {
+    showBackToTopButton();
+};
+function showBackToTopButton() {
+    var button = document.getElementById("backToTopBtn");
+    
+    if (document.documentElement.scrollTop > 20) {
+        button.style.display = "block";
+    } else {
+    button.style.display = "none";
+    }
+}
+
+function scrollToTop() {
+    window.scroll({
+        behavior: "smooth", 
+        top: 0,
+        left: 0
+    })
+}
 
 ///////////////////////////////////////////////////////////////////////////
 

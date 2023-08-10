@@ -80,3 +80,67 @@ ul .icon {
     height: 1000px;
 }
 /* ender slider section */
+
+
+
+/* start footer sectoin  */
+
+footer {
+    background-color: #333;
+    font-size: 30px;
+    color: white;
+
+}
+footer ul {
+    text-align: center;
+    padding: 20px;
+}
+footer ul li {
+    display: inline;
+    list-style: none;
+    flex: left;
+    padding: 20px;
+}
+
+footer a {
+    color: white;
+
+}
+.facebook:hover{
+    color: blue;
+
+}
+
+.github:hover{
+    color:black;
+}
+/* scroler sectoin  */
+
+#backToTopBtn {
+    display: none; 
+    position: fixed; 
+    bottom: 20px; 
+    right: 20px; 
+    z-index: 99;
+    padding: 10px 15px; 
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: whitesmoke;
+    cursor: pointer;
+    opacity: 0.7; 
+    transition: opacity 0.3s ease-in-out;
+    text-decoration: none;
+    font-family: sans-serif;
+    background: #000;
+    border-radius: 100px;
+
+}
+
+#backToTopBtn:hover {
+    opacity: 1; 
+}
+
+/* end scroler sectoin  */
+
+/* end footer sectoin  */
