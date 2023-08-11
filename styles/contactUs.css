@@ -1,0 +1,11 @@
+.myForm {
+    padding: 50px;
+}
+
+#fullName,
+#emailHelp,
+#password,
+#phone{
+    display: none;
+    color: red;
+} 

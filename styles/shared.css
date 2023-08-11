@@ -114,6 +114,12 @@ footer a {
 .github:hover{
     color:black;
 }
+
+.linkedin:hover {
+    background-color: blue;
+    color: white;
+    padding: 5px;
+}
 /* scroler sectoin  */
 
 #backToTopBtn {

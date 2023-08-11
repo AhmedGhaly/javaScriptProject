@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/contactUs.css">
+    <link rel="stylesheet" href="../styles/shared.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        
+        <script src="https://kit.fontawesome.com/115f0903f5.js" crossorigin="anonymous"></script>
+    <title>Contact Us</title>
+</head>
+<body>
+    
+    <header class="header"><h1><a href="./index.html">MY BRAND NAME</a></h1></header>
+    <nav>
+        <ul>
+            <li><a href="./index.html">HOME</a></li>
+            <li><a href="./checout.html">YOUR CARD</a></li>
+            <li><a href="ABOUT">ABOUT</a></li>
+            <li><a href="./contactUs.html">CONTACT US</a></li>
+            <li class="icon"><a href="../stuctures/checout.html"><i class="fas fa-shopping-cart"></i><div class="small-circle">0</div></a></li>
+            
+        </ul>
+    </nav>
+
+    <main class="my_container">
+        <form action="get" class="myForm">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Full Name</label>
+                <input oninput="checkFullNameInput()" type="txt" class="form-control" id="exampleInputFullName" aria-describedby="fullName" placeholder="Enter Full Name">
+                <small id="fullName" class="form-text">invalid input</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input oninput="checkEmailInput()" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <small id="emailHelp" class="form-text emailError">invalid input</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input oninput="checkPassworkInput()" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <small id="password" class="form-text paswordError">invalid input</small>
+            
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input oninput="checkPhoneInput()" type="text" class="form-control" id="phoneInput" placeholder="Phone">
+                <small id="phone" class="form-text phoneError">invalid input</small>
+            
+            </div>
+            <button onclick="submitInputs(event)" disabled type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
+        </form>
+    </main>
+    <footer>
+        <ul>
+            <li><a href="https://www.facebook.com/profile.php?id=100092288103856" target="_blank"><i class="facebook fa fa-facebook-f"></i></a></li>
+            <li><a href="https://github.com/AhmedGhaly" target="_blank"><i class="github fa fa-github"></i></a></li>
+            <li><a href="https://www.linkedin.com/in/ahmedghaly20" target="_blank"><i class="linkedin fa fa-linkedin"></i></a></li>
+            <h1>Ahmed Ghaly</h1>
+            <li>&copy; 2023 MY BRAND. All rights reserved.</li>
+        </ul>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="../scripts/contactUs.js"></script>
+    <button onclick="scrollToTop()" id="backToTopBtn" title="Go to top"> TOP</button>
+</body>
+</html>
