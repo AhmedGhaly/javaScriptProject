@@ -116,43 +116,14 @@ select:focus {
 }
 
 /* start search */
-
-.search-form {
-    display: flex;
-}
-  
 .search-input {
     padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px 0 0 4px;
-    width: 200px;
+    border-radius: 10px;
 }
-  
-.search-button {
-    background-color: #ccc;
-    color: #fff;
-    border: none;
-    border-radius: 0 4px 4px 0;
-    padding: 8px;
-    cursor: pointer;
-}
-
-.search-button i {
-    font-size: 16px;
-}
-
-.search-input:focus,
-.search-button:focus {
-    outline: none;
-    border-color: #666;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-}
-
 .search {
     text-align: center;
     margin: 10px;
     width: 100%;
-    display: inline-block;    
 }
 /* end search */
 
