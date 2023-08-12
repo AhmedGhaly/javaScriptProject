@@ -34,26 +34,9 @@ function renderCartItems() {
         cartItemsContainer.appendChild(emptyCartMessage);
     } else {
         for (let i = 0; i < checkOutProdcutsId.length; i++) {
-            var product = new XMLHttpRequest();
-            product.open("GET", "https://dummyjson.com/products/" + checkOutProdcutsId[i].id);
-            
-            product.send("");
-            sendRequest(product, checkOutProdcutsId[i].count);
-
+            renderCards(checkOutProdcutsId[i].product, checkOutProdcutsId[i].count);
         
     }
-}
-}
-
-function sendRequest(product, count) {
-    product.onreadystatechange = function () {
-        if (product.readyState == 4) {
-            if (product.status == 200){
-                var myProcuts = JSON.parse(product.response);
-                renderCards(myProcuts, count);
-            }
-    };
-    
 }
 }
 
@@ -124,7 +107,7 @@ function checkAmont(itemAmount, price, id) {
 
 function setElementCount(id,count) {
     for (let i = 0; i < checkOutProdcutsId.length; i++) {
-        if(checkOutProdcutsId[i].id == id)
+        if(checkOutProdcutsId[i].product.id == id)
         {
             checkOutProdcutsId[i].count = count;
         }
@@ -136,7 +119,7 @@ function setElementCount(id,count) {
 
 function getElementCount(id) {
     for (let i = 0; i < checkOutProdcutsId.length; i++) {
-        if(checkOutProdcutsId[i].id == id)
+        if(checkOutProdcutsId[i].product.id == id)
         {
             return checkOutProdcutsId[i].count;
         }
@@ -147,7 +130,7 @@ function getElementCount(id) {
 
 function deleteFromItems(id) {
     for (let i = 0; i < checkOutProdcutsId.length; i++) {
-        if(checkOutProdcutsId[i].id == id){
+        if(checkOutProdcutsId[i].product.id == id){
             checkOutProdcutsId.splice(i, 1);
             return;
         }

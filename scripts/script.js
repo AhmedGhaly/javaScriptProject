@@ -49,7 +49,7 @@ function closeModal() {
 
 function isEXist(id) {
     for (let i = 0; i < checkOutProdcutsId.length; i++) {
-        if(checkOutProdcutsId[i].id == id)
+        if(checkOutProdcutsId[i].product.id == id)
             return true;
     }
     return false;
@@ -102,7 +102,7 @@ function createModelItem(myProduct){
                     <input type="radio" id="star1" name="product${myProduct.id}" value="1" disabled>
                     <label for="star1"></label>
                 <div>
-                    <button onclick='addProdcutToCheckOut(${myProduct.id})' class="add-card btn btn-outline-primary"></button>
+                    <button onclick='addProdcutToCheckOut(${JSON.stringify(myProduct)})' class="add-card btn btn-outline-primary"></button>
                 </div>
             </div>
         </div>
@@ -289,16 +289,14 @@ function onSelectOptoin(e) {
 
 
 
-function addProdcutToCheckOut(id){
+function addProdcutToCheckOut(item){
     var amount = document.getElementsByClassName("countinput")[0];
-    if( !checkOutProdcutsId.find((element) => element.id == id)){
-        checkOutProdcutsId.push({id: id, count: amount.value});
-        numOfProductsInChecoutCards.innerHTML = checkOutProdcutsId.length;
-        setCookie("prodcuts", JSON.stringify(checkOutProdcutsId));
-        closeModal();
+    checkOutProdcutsId.push({product: item, count: amount.value});
+    numOfProductsInChecoutCards.innerHTML = checkOutProdcutsId.length;
+    setCookie("prodcuts", JSON.stringify(checkOutProdcutsId));
+    console.log(checkOutProdcutsId);
+    closeModal();
 
-    } else{
-    }
 
 }
 
@@ -398,26 +396,8 @@ function renderCartItems() {
         cartItemsContainer.appendChild(emptyCartMessage);
     } else {
         for (let i = 0; i < checkOutProdcutsId.length; i++) {
-            var product = new XMLHttpRequest();
-            product.open("GET", "https://dummyjson.com/products/" + checkOutProdcutsId[i].id);
-            
-            product.send("");
-            sendRequest(product, checkOutProdcutsId[i].count);
-
-        
+            renderCards(checkOutProdcutsId[i].product, checkOutProdcutsId[i].count);
     }
-}
-}
-
-function sendRequest(product, count) {
-    product.onreadystatechange = function () {
-        if (product.readyState == 4) {
-            if (product.status == 200){
-                var myProcuts = JSON.parse(product.response);
-                renderCards(myProcuts, count);
-            }
-    };
-    
 }
 }
 
@@ -459,7 +439,6 @@ function totalPriceChange() {
 
 function deleteItem(id) {
     deleteFromItems(id);
-    console.log(checkOutProdcutsId);
     setCookie("prodcuts", JSON.stringify(checkOutProdcutsId));
     renderCartItems();
 }
@@ -483,7 +462,7 @@ function checkAmont(itemAmount, price, id) {
 
 function setElementCount(id,count) {
     for (let i = 0; i < checkOutProdcutsId.length; i++) {
-        if(checkOutProdcutsId[i].id == id)
+        if(checkOutProdcutsId[i].product.id == id)
         {
             checkOutProdcutsId[i].count = count;
         }
@@ -495,7 +474,7 @@ function setElementCount(id,count) {
 
 function getElementCount(id) {
     for (let i = 0; i < checkOutProdcutsId.length; i++) {
-        if(checkOutProdcutsId[i].id == id)
+        if(checkOutProdcutsId[i].product.id == id)
         {
             return checkOutProdcutsId[i].count;
         }
@@ -506,7 +485,7 @@ function getElementCount(id) {
 
 function deleteFromItems(id) {
     for (let i = 0; i < checkOutProdcutsId.length; i++) {
-        if(checkOutProdcutsId[i].id == id){
+        if(checkOutProdcutsId[i].product.id == id){
             checkOutProdcutsId.splice(i, 1);
             return;
         }
