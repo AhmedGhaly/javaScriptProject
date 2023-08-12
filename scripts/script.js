@@ -47,10 +47,17 @@ function closeModal() {
     modal.style.display = "none"; 
 }
 
+function isEXist(id) {
+    for (let i = 0; i < checkOutProdcutsId.length; i++) {
+        if(checkOutProdcutsId[i].id == id)
+            return true;
+    }
+    return false;
+}
+
 
 function createModelItem(myProduct){
     var modelContent = document.getElementsByClassName("model")[0];
-    var images = myProduct.images;
     modelContent.innerHTML = 
     `<div class='row'>
         <div class='col'>
@@ -75,9 +82,13 @@ function createModelItem(myProduct){
                     <div class="col">
                         <h1 class="title">${myProduct.title}</h1>
                         <small class="brand">${myProduct.brand}</small>
-                    </div>
-                    <div class="col"><h3 class="price">$${myProduct.price}</h3></div>
-                <p class="card-text desc">${myProduct.description}</p>
+                        
+                        </div>
+                        <div class="col"><h3 class="price">$${myProduct.price}</h3></div>
+                        <p class="card-text desc">${myProduct.description}</p>
+                        Amount <input oninput='checkAmont(${myProduct.stock}, ${myProduct.price}, ${myProduct.id})' class="countinput countinput${myProduct.id}" type='txt' value='1' >
+                        <br><small class='error error${myProduct.id}'>should greater than 0 and less than ${myProduct.stock} and a not fraction number</small>
+                        <p>Total price = $<span class = 'totalPrices totalPriceForElement${myProduct.id}'>${myProduct.price}</span></p>
                 <div class="rating product${myProduct.id}" >
                     <small class="rating-num">(${myProduct.rating})</small>
                     <input type="radio" id="star5" name="product${myProduct.id}" value="5" disabled>
@@ -91,7 +102,7 @@ function createModelItem(myProduct){
                     <input type="radio" id="star1" name="product${myProduct.id}" value="1" disabled>
                     <label for="star1"></label>
                 <div>
-                    <button onclick='addProdcutToCheckOut(${myProduct.id})' class="btn btn-outline-primary">add to card</button>
+                    <button onclick='addProdcutToCheckOut(${myProduct.id})' class="add-card btn btn-outline-primary"></button>
                 </div>
             </div>
         </div>
@@ -99,6 +110,15 @@ function createModelItem(myProduct){
 
     `; 
     ratoing(myProduct.id, myProduct.rating);
+    var btn = document.getElementsByClassName("add-card")[0];
+    if(isEXist(myProduct.id)){
+        btn.setAttribute("disabled", '');
+        btn.innerHTML = "already added";
+    }else{
+        btn.removeAttribute("disabled");
+        btn.innerHTML = "add to card";
+    }
+
 
 }
 function prevItemImage(myImages) {
@@ -270,12 +290,14 @@ function onSelectOptoin(e) {
 
 
 function addProdcutToCheckOut(id){
+    var amount = document.getElementsByClassName("countinput")[0];
     if( !checkOutProdcutsId.find((element) => element.id == id)){
-        checkOutProdcutsId.push({id: id, count: 1});
+        checkOutProdcutsId.push({id: id, count: amount.value});
         numOfProductsInChecoutCards.innerHTML = checkOutProdcutsId.length;
         setCookie("prodcuts", JSON.stringify(checkOutProdcutsId));
         closeModal();
 
+    } else{
     }
 
 }
@@ -360,10 +382,144 @@ function scrollToTop() {
 
 
 
-/*
-* checkout page
-* increse amount
-* check moutn >0 < total amount
-* if the use buy product minus the amount by one
-*
-*/
+var totatPrice = document.getElementsByClassName("total")[0];
+
+const cartItemsContainer = document.getElementById('cart-items');
+function renderCartItems() {    
+
+    numOfProductsInChecoutCards.innerHTML = checkOutProdcutsId.length;
+    cartItemsContainer.innerHTML = '';
+
+    if (checkOutProdcutsId.length === 0) {
+        const emptyCartMessage = document.createElement('h1');
+        emptyCartMessage.classList.add('empty-cart');
+        totatPrice.innerHTML = 0;
+        emptyCartMessage.textContent = 'Your cart is empty.';
+        cartItemsContainer.appendChild(emptyCartMessage);
+    } else {
+        for (let i = 0; i < checkOutProdcutsId.length; i++) {
+            var product = new XMLHttpRequest();
+            product.open("GET", "https://dummyjson.com/products/" + checkOutProdcutsId[i].id);
+            
+            product.send("");
+            sendRequest(product, checkOutProdcutsId[i].count);
+
+        
+    }
+}
+}
+
+function sendRequest(product, count) {
+    product.onreadystatechange = function () {
+        if (product.readyState == 4) {
+            if (product.status == 200){
+                var myProcuts = JSON.parse(product.response);
+                renderCards(myProcuts, count);
+            }
+    };
+    
+}
+}
+
+
+function renderCards(item, count) {
+    const cartItem = document.createElement('div');
+    cartItem.classList.add('cart-item', 'row');
+    cartItem.innerHTML = 
+    `
+    <img src='${item.images[0]}' />
+    <div class='item-details row'>
+            <div class='col-8'>
+                <h3>${item.title}</h3>
+                <p class='item-price'>${item.price.toFixed(2)} / ${count} QTR</p>
+                <p>Total price = $<span class = 'totalPrices totalPriceForElement${item.id}'>${(item.price * getElementCount(item.id)).toFixed(2)}</span></p>
+            </div>
+            
+        </div>
+        <button class='btn btn-outline-danger fa fa-trash' onclick='deleteItem(${item.id})'></button>
+    `;
+
+    cartItemsContainer.appendChild(cartItem);
+    
+
+    totalPriceChange();
+}
+
+function totalPriceChange() {
+    var total = 0;
+    var totalPrices = document.getElementsByClassName("totalPrices");
+    for (let i = 0; i < totalPrices.length; i++) {
+        total += Number(totalPrices[i].innerHTML);
+        
+    }
+
+    totatPrice.innerHTML = total.toFixed(2);
+    
+}
+
+function deleteItem(id) {
+    deleteFromItems(id);
+    console.log(checkOutProdcutsId);
+    setCookie("prodcuts", JSON.stringify(checkOutProdcutsId));
+    renderCartItems();
+}
+
+
+function checkAmont(itemAmount, price, id) {
+    var totalPriceForItem = document.getElementsByClassName("totalPriceForElement"+id)[0];
+    var amountInout = document.getElementsByClassName("countinput"+id)[0];
+    var errorMsg = document.getElementsByClassName("error"+id)[0];
+    if(amountInout.value < 1 || amountInout.value > itemAmount || Math.floor(Number(amountInout.value)) != amountInout.value){
+        errorMsg.style.opacity = "1";
+    }else {
+        errorMsg.style.opacity = "0";
+        totalPriceForItem.innerHTML = Math.floor(amountInout.value * price);
+        setElementCount(id, amountInout.value);
+        setCookie("prodcuts", JSON.stringify(checkOutProdcutsId));
+        totalPriceChange();
+    }
+
+}
+
+function setElementCount(id,count) {
+    for (let i = 0; i < checkOutProdcutsId.length; i++) {
+        if(checkOutProdcutsId[i].id == id)
+        {
+            checkOutProdcutsId[i].count = count;
+        }
+        
+    }
+}
+
+
+
+function getElementCount(id) {
+    for (let i = 0; i < checkOutProdcutsId.length; i++) {
+        if(checkOutProdcutsId[i].id == id)
+        {
+            return checkOutProdcutsId[i].count;
+        }
+        
+    }
+}
+
+
+function deleteFromItems(id) {
+    for (let i = 0; i < checkOutProdcutsId.length; i++) {
+        if(checkOutProdcutsId[i].id == id){
+            checkOutProdcutsId.splice(i, 1);
+            return;
+        }
+    }
+
+}
+
+
+function showorders(e) {
+    e.preventDefault();
+    renderCartItems();
+    var myCard = document.getElementsByClassName("my_card")[0];
+    myCard.classList.toggle("active");
+}
+
+//<button class='btn btn-outline-danger' onclick='deleteItem(${item.id})'>Delete</button>

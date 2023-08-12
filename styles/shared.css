@@ -46,6 +46,8 @@ nav a:hover {
 ul .icon {
     float: right;
     position: relative;
+    cursor: pointer;
+    size: 50px;
 }
 
 .small-circle {

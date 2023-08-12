@@ -21,7 +21,7 @@ function getCookie(cookieName) {
 function setCookie (key, val){
     document.cookie = `${key}=${val};`;
 }
-var test = [];
+
 const cartItemsContainer = document.getElementById('cart-items');
 function renderCartItems() {    
     cartItemsContainer.innerHTML = '';

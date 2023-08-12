@@ -19,27 +19,33 @@
                 <li><a href="./checout.html">YOUR CARD</a></li>
                 <li><a href="ABOUT">ABOUT</a></li>
                 <li><a href="./contactUs.html">CONTACT US</a></li>
-                <li class="icon"><a href="../stuctures/checout.html"><i class="fas fa-shopping-cart"></i><div class="small-circle">0</div></a></li>
+                <li class="icon"><a href="" onclick="showorders(event)" ><i  class=" fas fa-shopping-cart"></i><div class="small-circle">0</div></a></li>
                 
             </ul>
         </nav>
         <!-- start slider -->
         <div class="carousel slide">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
+            <!-- <div class="carousel-inner"> -->
+                <!-- <div class="carousel-item active"> -->
                     <img class="d-block w-100 image" src="../assets/images/1.jpg" >
-                </div>
-            </div>
-            <a onclick="prevImage()" class="carousel-control-prev" >
-                <span class="carousel-control-prev-icon"></span>
-                <span class="sr-only">Previous</span>
+                <!-- </div> -->
+            <!-- </div> -->
+            <a class="carousel-control-prev" >
+                <span onclick="prevImage()" class="carousel-control-prev-icon"></span>
+                <span  class="sr-only">Previous</span>
             </a>
-            <a onclick="nextImage()" class="carousel-control-next" >
-                <span class="carousel-control-next-icon"></span>
+            <a  class="carousel-control-next" >
+                <span onclick="nextImage()" class="carousel-control-next-icon"></span>
                 <span class="sr-only">Next</span>
             </a>
+            <div class="my_card active">
+                <div id="cart-items">
+                </div>
+                <h6 class="totalprice">Total price = $<span class="total"></span></h6>
+            </div>
         </div>
         <!-- end slider -->
+
 
         <!-- model -->
         <div id="myModal" class="modal">
