@@ -500,5 +500,3 @@ function showorders(e) {
     var myCard = document.getElementsByClassName("my_card")[0];
     myCard.classList.toggle("active");
 }
-
-//<button class='btn btn-outline-danger' onclick='deleteItem(${item.id})'>Delete</button>

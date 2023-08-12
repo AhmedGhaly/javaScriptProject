@@ -129,8 +129,8 @@ select:focus {
 
 /* end card sectoin */
 
-/* test  */
 
+/* start card  */
 .slide{
     position: relative;
 }
@@ -215,7 +215,7 @@ select:focus {
     padding: 30px;
 }
 
-/* end test  */
+/* end card  */
 /* start model section  */
 
 .modal {
