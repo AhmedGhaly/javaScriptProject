@@ -134,6 +134,11 @@ select:focus {
 .slide{
     position: relative;
 }
+@keyframes myAnimation {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); } 
+}
+
 
 .my_card{
     z-index: 1;
@@ -146,13 +151,14 @@ select:focus {
     padding: 20px;
     margin-right: 5px;
     display: block;
+    animation: myAnimation .4s ease-in-out;
     
 }
 .active {
     display: none;
 }
 
-  
+
 #cart-items {
     margin-top: 20px;
 }
