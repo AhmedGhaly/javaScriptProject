@@ -63,6 +63,7 @@ color: red; /* Color for selected stars */
 
 .mainCard {
     width: 100%;
+    justify-content: space-around;
 }
 
 .myCard {

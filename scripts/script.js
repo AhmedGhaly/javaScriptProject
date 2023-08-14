@@ -156,7 +156,7 @@ function createCard (myProduct) {
     var cardDiv = document.createElement("div");   
     cardDiv.setAttribute("class", "card myCard") 
     cardDiv.onclick = function () {openModal(myProduct);}
-    cardDiv.setAttribute("style", "width: 18rem;") 
+    cardDiv.setAttribute("style", "width: 25rem;") 
     cardDiv.innerHTML = `
     <img class="card-img-top" src="${myProduct.images[0]}">
                 <span class="discount-label">- ${myProduct.discountPercentage} %</span>
@@ -294,7 +294,6 @@ function addProdcutToCheckOut(item){
     checkOutProdcutsId.push({product: item, count: amount.value});
     numOfProductsInChecoutCards.innerHTML = checkOutProdcutsId.length;
     setCookie("prodcuts", JSON.stringify(checkOutProdcutsId));
-    console.log(checkOutProdcutsId);
     closeModal();
 
 
@@ -412,7 +411,7 @@ function renderCards(item, count) {
             <div class='col-8'>
                 <h3>${item.title}</h3>
                 <p class='item-price'>${item.price.toFixed(2)} / ${count} QTR</p>
-                <p>Total price = $<span class = 'totalPrices totalPriceForElement${item.id}'>${(item.price * getElementCount(item.id)).toFixed(2)}</span></p>
+                <h5><p>Total = $<span class = 'totalPrices totalPriceForElement${item.id}'>${(item.price * getElementCount(item.id)).toFixed(2)}</span></p></h5>
             </div>
             
         </div>
@@ -445,12 +444,16 @@ function deleteItem(id) {
 
 
 function checkAmont(itemAmount, price, id) {
+    var btn = document.getElementsByClassName("add-card")[0];
     var totalPriceForItem = document.getElementsByClassName("totalPriceForElement"+id)[0];
     var amountInout = document.getElementsByClassName("countinput"+id)[0];
     var errorMsg = document.getElementsByClassName("error"+id)[0];
     if(amountInout.value < 1 || amountInout.value > itemAmount || Math.floor(Number(amountInout.value)) != amountInout.value){
         errorMsg.style.opacity = "1";
+        btn.setAttribute("disabled", '');
+
     }else {
+        btn.removeAttribute("disabled");
         errorMsg.style.opacity = "0";
         totalPriceForItem.innerHTML = Math.floor(amountInout.value * price);
         setElementCount(id, amountInout.value);
