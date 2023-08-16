@@ -57,7 +57,7 @@ color: red; /* Color for selected stars */
 .card {
     padding: 0;
     width: 33.33%;
-    margin: 10px ;
+    margin: 0 ;
     margin-top: 20px ;
 }
 
@@ -75,9 +75,6 @@ color: red; /* Color for selected stars */
 
 .myCard:hover {
     cursor: pointer;
-}
-
-.myCard:hover {
     transform: scale(1.03);
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.7);
 }
@@ -86,13 +83,24 @@ color: red; /* Color for selected stars */
     height: 70%;
 }
 
+.chooseCat {
+    margin: 3px;
+    padding-right: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
 select {
     width: 200px;
     padding: 8px;
+    display: inline;
+    width: 13%;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
     background-color: #fff;
+    align-items: center;
     color: #333;
 }
 select::after {
@@ -118,8 +126,11 @@ select:focus {
 
 /* start search */
 .search-input {
-    padding: 8px;
+    padding: 10px;
+    width: 20%;
+    display: inline;
     border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
 }
 .search {
     text-align: center;
@@ -140,15 +151,16 @@ select:focus {
     100% { transform: scale(1); } 
 }
 
-
 .my_card{
     z-index: 1;
     position: absolute;
     top: 0;
     right: 0px;
     background-color: white;
-    border-radius: 5%;
+    border-radius: 20px;
     margin: 5px;
+    height: 600px;
+    overflow: auto;
     padding: 20px;
     margin-right: 5px;
     display: block;
@@ -225,6 +237,12 @@ select:focus {
 /* end card  */
 /* start model section  */
 
+.buttons button {
+    margin: 10px;
+    
+    border-radius: 20px;
+}
+
 .modal {
     display: none; 
     position: fixed; 
@@ -233,21 +251,25 @@ select:focus {
     top: 0;
     width: 100%; 
     height: 100%; 
-    overflow: auto; 
+    overflow: hidden;
     background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 30px; 
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 5% auto;
     padding: 20px;
+    align-items: center;
     border: 1px solid #888;
-    width: 80%; 
+    width: 50%; 
 }
 
 .close {
     color: #aaa;
-    float: right;
+    position: absolute;
+    left: 15px;
     font-size: 28px;
     font-weight: bold;
 }
@@ -273,6 +295,11 @@ select:focus {
 
 .model .price {
     font-size: 32px;
+}
+
+.remove-card {
+    display: none;
+    
 }
 
 .black {

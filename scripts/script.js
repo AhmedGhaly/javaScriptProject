@@ -36,14 +36,15 @@ function prevImage () {
 
 ///////////////// model /////////////////////////////////////
 
+
+
+var modal = document.getElementById("myModal");
 function openModal(myProduct) {
-    var modal = document.getElementById("myModal");
     modal.style.display = "block"; 
     createModelItem(myProduct);
 }
 
 function closeModal() {
-    var modal = document.getElementById("myModal");
     modal.style.display = "none"; 
 }
 
@@ -56,7 +57,9 @@ function isEXist(id) {
 }
 
 
+
 function createModelItem(myProduct){
+    
     var modelContent = document.getElementsByClassName("model")[0];
     modelContent.innerHTML = 
     `<div class='row'>
@@ -101,26 +104,63 @@ function createModelItem(myProduct){
                     <label for="star2"></label>
                     <input type="radio" id="star1" name="product${myProduct.id}" value="1" disabled>
                     <label for="star1"></label>
-                <div>
-                    <button onclick='addProdcutToCheckOut(${JSON.stringify(myProduct)})' class="add-card btn btn-outline-primary"></button>
-                </div>
+                <div class="buttons">
+                    <button onclick='addProdcutToCheckOut(${JSON.stringify({id:myProduct.id, images: myProduct.images, price: myProduct.price, title: myProduct.title})})' class="add-card btn btn-outline-primary">add to card</button>
+                    <button onclick='removeElement(${myProduct.id})' class="remove-card btn btn-outline-danger">remove from card</button>
+                    </div>
             </div>
         </div>
     </div>
 
     `; 
+
     ratoing(myProduct.id, myProduct.rating);
-    var btn = document.getElementsByClassName("add-card")[0];
+    btn = document.getElementsByClassName("add-card")[0];
+    remove_btn  = document.getElementsByClassName("remove-card")[0];
+    div = document.getElementsByClassName("countinput"+myProduct.id)[0];
     if(isEXist(myProduct.id)){
-        btn.setAttribute("disabled", '');
-        btn.innerHTML = "already added";
+        removeBtnAdd(myProduct.id);
+        
     }else{
-        btn.removeAttribute("disabled");
-        btn.innerHTML = "add to card";
+        enableBtnAdd(myProduct.id);
     }
-
-
+    
+    
 }
+var btn, remove_btn, div;
+
+function enableBtnAdd(id){
+    div.removeAttribute("disabled");
+    btn.removeAttribute("disabled");
+    btn.innerHTML = "add to card";
+    remove_btn.style.display = "none";
+    
+}
+
+function removeBtnAdd(id){
+    div.setAttribute("disabled", "");
+    btn.setAttribute("disabled", '');
+    btn.innerHTML = "already added";
+    remove_btn.style.display = "block";
+}
+
+function removeElement(id) {
+    deleteItem(id);
+    enableBtnAdd(id);
+}
+
+function addProdcutToCheckOut(item){
+    var amount = document.getElementsByClassName("countinput")[0];
+    checkOutProdcutsId.push({product: item, count: amount.value});
+    numOfProductsInChecoutCards.innerHTML = checkOutProdcutsId.length;
+    setCookie("prodcuts", JSON.stringify(checkOutProdcutsId));
+    removeBtnAdd(item.id);
+
+    // closeModal();
+}
+
+
+
 function prevItemImage(myImages) {
     var currentImage = document.getElementsByClassName("currentImage")[0];
     var image = myImages.split(",");
@@ -288,16 +328,6 @@ function onSelectOptoin(e) {
 }
 
 
-
-function addProdcutToCheckOut(item){
-    var amount = document.getElementsByClassName("countinput")[0];
-    checkOutProdcutsId.push({product: item, count: amount.value});
-    numOfProductsInChecoutCards.innerHTML = checkOutProdcutsId.length;
-    setCookie("prodcuts", JSON.stringify(checkOutProdcutsId));
-    closeModal();
-
-
-}
 
 
 
