@@ -11,7 +11,7 @@ numOfProductsInChecoutCards.innerHTML = checkOutProdcutsId.length;
 
 ///////////// slider //////////////////////////////////////////////////////////////////
 var images = ["../assets/images/1.jpg","../assets/images/2.jpg","../assets/images/3.jpg","../assets/images/4.jpg","../assets/images/5.jpg","../assets/images/6.jpg"];
-
+var divDanger, divSucces;
 var imageContent = document.getElementsByClassName("image")[0];
 // var slider = document.getElementsByClassName("slider")[0];
 var currentImage = 1;
@@ -155,8 +155,23 @@ function addProdcutToCheckOut(item){
     numOfProductsInChecoutCards.innerHTML = checkOutProdcutsId.length;
     setCookie("prodcuts", JSON.stringify(checkOutProdcutsId));
     removeBtnAdd(item.id);
+    divSucces = document.getElementsByClassName("text_indecator_success")[0];
+    showDiv(divSucces, "item add successfully...")
+    setTimeout(() => {
+        disapearDiv(divSucces);
+    }, 2000);
 
-    // closeModal();
+}
+
+function disapearDiv(div){
+    div.style.display = "none";
+
+}
+
+
+function showDiv(div, msg){
+    div.style.display = "inline";
+    div.innerHTML = msg;
 }
 
 
@@ -466,9 +481,16 @@ function totalPriceChange() {
     
 }
 
+
 function deleteItem(id) {
     deleteFromItems(id);
     setCookie("prodcuts", JSON.stringify(checkOutProdcutsId));
+
+    divDanger = document.getElementsByClassName("text_indecator_danger")[0];
+    showDiv(divDanger, "item removed...")
+    setTimeout(() => {
+        disapearDiv(divDanger);
+    }, 2000);
     renderCartItems();
 }
 

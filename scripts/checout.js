@@ -85,6 +85,11 @@ function deleteItem(id) {
 
     deleteFromItems(id);
     setCookie("prodcuts", JSON.stringify(checkOutProdcutsId));
+    divDanger = document.getElementsByClassName("text_indecator_danger")[0];
+    showDiv(divDanger, "item removed...")
+    setTimeout(() => {
+        disapearDiv(divDanger);
+    }, 2000);
     renderCartItems();
 }
 
@@ -168,3 +173,22 @@ function scrollToTop() {
 }
 
 ///////////////////////////////////////////////////////////////////////////
+
+
+
+// show succes and danger div 
+
+
+
+
+function disapearDiv(div){
+    div.style.display = "none";
+
+}
+
+
+function showDiv(div, msg){
+    div.style.display = "inline";
+    div.innerHTML = msg;
+}
+
